@@ -1,0 +1,4 @@
+[submodule "boa"]
+	path = boa
+	url = git@github.com:boa-dev/boa.git
+	branch = main
