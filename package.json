@@ -1,0 +1,22 @@
+{
+  "name": "cwjsr-rs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "wasm-pack build --target web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chain-web/cwjsr.git"
+  },
+  "author": "scc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chain-web/cwjsr/issues"
+  },
+  "homepage": "https://github.com/chain-web/cwjsr#readme"
+}
