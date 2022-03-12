@@ -1,7 +1,3 @@
-#![doc(
-    html_logo_url = "https://raw.githubusercontent.com/boa-dev/boa/main/assets/logo.svg",
-    html_favicon_url = "https://raw.githubusercontent.com/boa-dev/boa/main/assets/logo.svg"
-)]
 #![cfg_attr(not(test), forbid(clippy::unwrap_used))]
 #![warn(
     clippy::perf,
@@ -61,10 +57,19 @@
 
 use boa_engine::Context;
 use wasm_bindgen::prelude::*;
+// use wasm_bindgen_test::__rt::js_console_log;
 
 #[wasm_bindgen]
 pub fn evaluate(src: &str) -> Result<String, JsValue> {
     // Setup executor
+    // js_console_log(&src);
+    // let res  = Context::default()
+    //     .eval(src)
+    // .unwrap()
+    // .display()
+    // .to_string();
+    // js_console_log(&res);
+
     Context::default()
         .eval(src)
         .map_err(|e| JsValue::from(format!("Uncaught {}", e.display())))
