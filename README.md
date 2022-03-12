@@ -1,4 +1,4 @@
-## A js runtime
+## chain web js runtime
 
 
 ### 🛠️ Build with `wasm-pack build`
