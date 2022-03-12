@@ -1,6 +1,6 @@
 [package]
 name = "cwjsr"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["“scc” <66scc66@gmail.com>"]
 edition = "2018"
 
