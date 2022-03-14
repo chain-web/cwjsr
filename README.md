@@ -4,7 +4,7 @@
 ### 🛠️ Build with `wasm-pack build`
 
 ```
-wasm-pack build
+sh ./scripts/build.sh
 ```
 
 ### 🔬 Test in Headless Browsers with `wasm-pack test`
