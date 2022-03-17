@@ -1,6 +1,6 @@
 [package]
 name = "cwjsr"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["“scc” <66scc66@gmail.com>"]
 edition = "2018"
 
@@ -15,6 +15,7 @@ boa_engine = { path = "./boa/boa_engine", features = ["console"] }
 wasm-bindgen = "=0.2.79"
 getrandom = { version = "0.2.5", features = ["js"] }
 wasm-bindgen-test = "0.3.29"
+js-sys = "0.3.56"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires

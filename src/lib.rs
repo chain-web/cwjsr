@@ -54,24 +54,49 @@
     clippy::let_unit_value,
     rustdoc::missing_doc_code_examples
 )]
-
-use boa_engine::Context;
+use boa_engine::{
+    object::FunctionBuilder,
+    property::Attribute,
+    Context,JsValue as Bjsv
+};
 use wasm_bindgen::prelude::*;
 // use wasm_bindgen_test::__rt::js_console_log;
 
+
+fn get_account (_arg1: &Bjsv, arg2: &[Bjsv], _arg3 :&mut Context) -> Result<Bjsv, Bjsv> {
+    let ag2 = arg2[0].display().to_string();
+    // js_console_log("&ag2");
+    // js_console_log(&ag2);
+    let resu = __sk__ipld__getAccount(&ag2);
+    Ok(Bjsv::new(resu))
+}
+
+#[wasm_bindgen]
+extern "C" {
+    fn __sk__ipld__getAccount(s: &str) -> String;
+}
+
+
 #[wasm_bindgen]
 pub fn evaluate(src: &str) -> Result<String, JsValue> {
-    // Setup executor
-    // js_console_log(&src);
-    // let res  = Context::default()
-    //     .eval(src)
-    // .unwrap()
-    // .display()
-    // .to_string();
-    // js_console_log(&res);
+    let mut context = Context::default();
+    let js_function = FunctionBuilder::closure(
+        &mut context,  get_account
+    )
+    .name("__sk__ipld__getAccount")
+    .build();
 
-    Context::default()
-        .eval(src)
+    // bind the function as a global property in Javascript.
+    context.register_global_property(
+        // set the key to access the function the same as its name for
+        "__sk__ipld__getAccount",
+        // pass `js_function` as a property value.
+        js_function,
+        // assign to the "__sk__ipld__getAccount" property the desired attributes.
+        Attribute::WRITABLE | Attribute::NON_ENUMERABLE | Attribute::CONFIGURABLE,
+    );
+
+    context.eval(src)
         .map_err(|e| JsValue::from(format!("Uncaught {}", e.display())))
         .map(|v| v.display().to_string())
 }
