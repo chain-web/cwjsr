@@ -1,8 +1,10 @@
 {
-  "name": "cwjsr-rs",
-  "version": "1.0.0",
+  "name": "cwjsr",
+  "version": "0.2.3",
   "description": "",
-  "main": "index.js",
+  "main": "node/cwjsr.js",
+  "browser": "web/cwjsr.js",
+  "sideEffects": false,
   "directories": {
     "test": "tests"
   },
