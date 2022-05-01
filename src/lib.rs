@@ -54,47 +54,90 @@
     clippy::let_unit_value,
     rustdoc::missing_doc_code_examples
 )]
-use boa_engine::{
-    object::FunctionBuilder,
-    property::Attribute,
-    Context,JsValue as Bjsv
-};
+
+use boa_engine::Context;
 use wasm_bindgen::prelude::*;
-// use wasm_bindgen_test::__rt::js_console_log;
+mod sk;
+
+use sk::skglobal::SkGlobal;
 
 
-fn get_account (_arg1: &Bjsv, arg2: &[Bjsv], _arg3 :&mut Context) -> Result<Bjsv, Bjsv> {
-    let ag2 = arg2[0].display().to_string();
-    // js_console_log("&ag2");
-    // js_console_log(&ag2);
-    let resu = __sk__ipld__getAccount(&ag2);
-    Ok(Bjsv::new(resu))
-}
+// async fn get_account (_arg1: &Bjsv, arg2: &[Bjsv], _arg3 :&mut Context) -> Result<Bjsv, Bjsv> {
+//     let ag2 = arg2[0].display().to_string();
+//     js_console_log("&ag2");
+//     js_console_log(&ag2);
+//     let resu = __sk__ipld__getAccount(&ag2).await
+//         .map_err(|e| {
+//             js_console_log("&e");
+//             let s = e.as_string().unwrap();
+//             js_console_log(&s);
+//             s
+//         })
+//         .map(|r| {
+//             js_console_log("&r");
+//             let s = r.as_string().unwrap();
+//             js_console_log(&s);
+//             s
+//         });
+//     js_console_log(&ag2);
+//     Ok(Bjsv::new(resu.unwrap()))
+// }
 
-#[wasm_bindgen]
-extern "C" {
-    fn __sk__ipld__getAccount(s: &str) -> String;
-}
+// fn get_accounts (_arg1: &Bjsv, arg2: &[Bjsv], _arg3 :&mut Context) -> Result<Bjsv, Bjsv> {
+//     let ag2 = arg2[0].display().to_string();
+//     js_console_log("&ag2");
+//     js_console_log(&ag2);
+//     let val = JsValue::from_str(&ag2);
+//     let resu = __sk__ipld__getAccounts(&val).as_string();
+
+//     // use std::{thread, time};
+
+//     // let ten_millis = time::Duration::from_millis(10);
+//     // let now = time::Instant::now();
+
+//     // thread::sleep(ten_millis);
+//     match resu
+//     {
+//         Some(r) => {
+//             js_console_log("&r");
+//             js_console_log(&r);
+//             Ok(Bjsv::new(r))
+//         },
+//         None => {
+//             js_console_log("&r");
+//             js_console_log("None");
+//             Ok(Bjsv::new("None"))
+//         }
+//     }
+// }
+
+// #[wasm_bindgen]
+// extern "C" {
+// //    async fn __sk__ipld__getAccount(s: &str) -> Result<JsValue, JsValue>;
+//    fn __sk__ipld__getAccounts(s: &JsValue) -> JsValue;
+// }
 
 
 #[wasm_bindgen]
 pub fn evaluate(src: &str) -> Result<String, JsValue> {
     let mut context = Context::default();
-    let js_function = FunctionBuilder::closure(
-        &mut context,  get_account
-    )
-    .name("__sk__ipld__getAccount")
-    .build();
+    // let js_function = FunctionBuilder::closure(
+    //     &mut context,  get_accounts
+    // )
+    // .name("__sk__ipld__getAccounts")
+    // .build();
 
-    // bind the function as a global property in Javascript.
-    context.register_global_property(
-        // set the key to access the function the same as its name for
-        "__sk__ipld__getAccount",
-        // pass `js_function` as a property value.
-        js_function,
-        // assign to the "__sk__ipld__getAccount" property the desired attributes.
-        Attribute::WRITABLE | Attribute::NON_ENUMERABLE | Attribute::CONFIGURABLE,
-    );
+    // // bind the function as a global property in Javascript.
+    // context.register_global_property(
+    //     // set the key to access the function the same as its name for
+    //     "__sk__ipld__getAccounts",
+    //     // pass `js_function` as a property value.
+    //     js_function,
+    //     // assign to the "__sk__ipld__getAccount" property the desired attributes.
+    //     Attribute::WRITABLE | Attribute::NON_ENUMERABLE | Attribute::CONFIGURABLE,
+    // );
+
+    context.register_global_class::<SkGlobal>();
 
     context.eval(src)
         .map_err(|e| JsValue::from(format!("Uncaught {}", e.display())))
