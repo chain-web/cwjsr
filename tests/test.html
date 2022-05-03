@@ -37,13 +37,12 @@ test js run time
         const str = accounts.join(',')
         console.log(str)
         const result = evaluate(`
-        const aaa = new SkGlobal('cc', 27)
+        const aaa = new SkGlobal('cc', 27);
         const test = () => {
             return aaa.sayHello()
         }
         test()
-        `, () => {
-        })
+        `, 100n)
         console.log(result)
     })
 </script>

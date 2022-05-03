@@ -119,8 +119,8 @@ use sk::skglobal::SkGlobal;
 
 
 #[wasm_bindgen]
-pub fn evaluate(src: &str) -> Result<String, JsValue> {
-    let mut context = Context::default();
+pub fn evaluate(src: &str, cu_limit: u64) -> Result<String, JsValue> {
+    let mut context = Context::new_sk_context(cu_limit);
     // let js_function = FunctionBuilder::closure(
     //     &mut context,  get_accounts
     // )
