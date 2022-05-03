@@ -137,7 +137,7 @@ pub fn evaluate(src: &str) -> Result<String, JsValue> {
     //     Attribute::WRITABLE | Attribute::NON_ENUMERABLE | Attribute::CONFIGURABLE,
     // );
 
-    context.register_global_class::<SkGlobal>();
+    let _res = context.register_global_class::<SkGlobal>();
 
     context.eval(src)
         .map_err(|e| JsValue::from(format!("Uncaught {}", e.display())))

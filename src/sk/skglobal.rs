@@ -7,7 +7,7 @@ use boa_engine::{
 
 use boa_gc::{Finalize, Trace};
 use wasm_bindgen::prelude::*;
-use wasm_bindgen_test::__rt::js_console_log;
+// use wasm_bindgen_test::__rt::js_console_log;
 
 #[wasm_bindgen]
 extern "C" {
