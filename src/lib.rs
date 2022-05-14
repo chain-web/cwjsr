@@ -57,6 +57,8 @@
 
 use boa_engine::Context;
 use wasm_bindgen::prelude::*;
+// use std::collections::HashMap;
+// use wasm_bindgen_test::__rt::js_console_log;
 mod sk;
 
 use sk::skglobal::SkGlobal;
@@ -119,7 +121,18 @@ use sk::skglobal::SkGlobal;
 
 
 #[wasm_bindgen]
-pub fn evaluate(src: &str, cu_limit: u64) -> Result<String, JsValue> {
+pub fn evaluate(src: &str, cu_limit: u64, param: &JsValue) -> Result<String, JsValue> {
+    // 接收kv参数
+    // let ep: HashMap<String, Vec<String>> = serde_wasm_bindgen::from_value(param)?;
+    // #[allow(clippy::single_match_else)]
+    // let mothed = match ep.get("mothed") {
+    //     Some(val) => &val[0],
+    //     None => {
+    //         js_console_log("no mothed");
+    //         return Err(JsValue::from_str("no mothed param"))
+    //     }
+    // };
+    // js_console_log(mothed);
     let mut context = Context::new_sk_context(cu_limit);
     // let js_function = FunctionBuilder::closure(
     //     &mut context,  get_accounts

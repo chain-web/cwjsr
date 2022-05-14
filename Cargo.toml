@@ -14,11 +14,13 @@ default = ["console_error_panic_hook"]
 boa_engine = { path = "./sk-boa/boa_engine", features = ["console"] }
 boa_gc = { path = "./sk-boa/boa_gc", version = "0.14.0" }
 gc = "0.4.1"
-wasm-bindgen = "=0.2.79"
+wasm-bindgen = {version = "0.2.80", features = ["serde-serialize"] }
 getrandom = { version = "0.2.5", features = ["js"] }
 wasm-bindgen-test = "0.3.29"
-js-sys = "0.3.56"
+js-sys = "0.3.57"
 wasm-bindgen-futures = "0.4.29"
+
+serde-wasm-bindgen = "0.4.3"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires
@@ -32,6 +34,13 @@ console_error_panic_hook = { version = "0.1.6", optional = true }
 #
 # Unfortunately, `wee_alloc` requires nightly Rust when targeting wasm for now.
 wee_alloc = { version = "0.4.5", optional = true }
+
+[dependencies.web-sys]
+version = "0.3.57"
+features = [
+  'Window',
+  'TextDecoder'
+]
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3.13"
