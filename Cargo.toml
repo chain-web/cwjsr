@@ -14,6 +14,7 @@ default = ["console_error_panic_hook"]
 boa_engine = { path = "./sk-boa/boa_engine", features = ["console"] }
 boa_gc = { path = "./sk-boa/boa_gc", version = "0.14.0" }
 gc = "0.4.1"
+tap = "1.0.1"
 wasm-bindgen = {version = "0.2.80", features = ["serde-serialize"] }
 getrandom = { version = "0.2.5", features = ["js"] }
 wasm-bindgen-test = "0.3.29"
@@ -21,6 +22,8 @@ js-sys = "0.3.57"
 wasm-bindgen-futures = "0.4.29"
 
 serde-wasm-bindgen = "0.4.3"
+
+cid = "0.8.4"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires

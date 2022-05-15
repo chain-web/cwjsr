@@ -37,12 +37,13 @@ test js run time
         const str = accounts.join(',')
         console.log(str)
         const result = evaluate(`
-        const aaa = new SkGlobal('cc', 27);
+        "use strict";
         const test = () => {
-            return aaa.sayHello()
+            const __sk__ = __init__sk__();
+            return __sk__.genHash('1asaasasa');
         }
         test()
-        `, 100n)
+        `, 100n, {})
         console.log(result)
     })
 </script>

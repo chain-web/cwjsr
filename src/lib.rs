@@ -58,11 +58,10 @@
 use boa_engine::Context;
 use wasm_bindgen::prelude::*;
 // use std::collections::HashMap;
-// use wasm_bindgen_test::__rt::js_console_log;
+use wasm_bindgen_test::__rt::js_console_log;
 mod sk;
 
-use sk::skglobal::SkGlobal;
-
+use sk::window_sk::init_sk;
 
 // async fn get_account (_arg1: &Bjsv, arg2: &[Bjsv], _arg3 :&mut Context) -> Result<Bjsv, Bjsv> {
 //     let ag2 = arg2[0].display().to_string();
@@ -119,7 +118,6 @@ use sk::skglobal::SkGlobal;
 //    fn __sk__ipld__getAccounts(s: &JsValue) -> JsValue;
 // }
 
-
 #[wasm_bindgen]
 pub fn evaluate(src: &str, cu_limit: u64, param: &JsValue) -> Result<String, JsValue> {
     // 接收kv参数
@@ -150,9 +148,15 @@ pub fn evaluate(src: &str, cu_limit: u64, param: &JsValue) -> Result<String, JsV
     //     Attribute::WRITABLE | Attribute::NON_ENUMERABLE | Attribute::CONFIGURABLE,
     // );
 
-    let _res = context.register_global_class::<SkGlobal>();
+    let inited = init_sk(&mut context);
 
-    context.eval(src)
+    match inited {
+        Ok(_) => js_console_log("__sk__ inited"),
+        Err(_) => return Err(JsValue::from_str("no mothed param")),
+    }
+
+    context
+        .eval(src)
         .map_err(|e| JsValue::from(format!("Uncaught {}", e.display())))
         .map(|v| v.display().to_string())
 }
