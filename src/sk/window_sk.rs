@@ -10,13 +10,24 @@ use cid::multihash::{Code, MultihashDigest};
 // https://github.com/multiformats/rust-cid
 use cid::Cid;
 use tap::{Conv, Pipe};
+use wasm_bindgen_test::__rt::js_console_log;
+// use wasm_bindgen::prelude::*;
+
+// #[wasm_bindgen]
+// extern "C" {
+//     #[wasm_bindgen(js_name = jsOftenUsesCamelCase)]
+//     fn js_often_uses_camel_case() -> u32;
+// }
 
 const RAW: u64 = 0x55;
 
 // 生成cid hash
 #[allow(clippy::unnecessary_wraps)]
 pub(crate) fn gen_hash(_: &JsValue, args: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
-  let text = args.get_or_undefined(0).to_string(context).expect("gen_hash: get arg error");
+  let text = args
+    .get_or_undefined(0)
+    .to_string(context)
+    .expect("gen_hash: get arg error");
   let h = Code::Sha2_256.digest(text.as_bytes());
 
   let cid = Cid::new_v1(RAW, h);
@@ -25,11 +36,22 @@ pub(crate) fn gen_hash(_: &JsValue, args: &[JsValue], context: &mut Context) -> 
 }
 
 #[allow(clippy::unnecessary_wraps)]
+pub(crate) fn log(_: &JsValue, args: &[JsValue], context: &mut Context) -> JsResult<JsValue> {
+  let text = args
+    .get_or_undefined(0)
+    .to_string(context)
+    .expect("log: get arg error");
+  js_console_log(&text);
+  Ok(JsValue::new(""))
+}
+
+#[allow(clippy::unnecessary_wraps)]
 pub(crate) fn init_sk(context: &mut Context) -> Result<(), JsValue> {
   let attribute = Attribute::READONLY | Attribute::NON_ENUMERABLE | Attribute::PERMANENT;
   let obj = ObjectInitializer::new(context)
     .property("name", "cwjsr_sk", attribute)
     .function(gen_hash, "genHash", 1)
+    .function(log, "log", 1)
     .build()
     .conv::<JsValue>()
     .pipe(Some)
