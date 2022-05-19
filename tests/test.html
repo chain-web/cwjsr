@@ -40,10 +40,16 @@ test js run time
         "use strict";
         const test = () => {
             const __sk__ = __init__sk__();
-            return __sk__.genHash('1asaasasa');
+            return __sk__.genDagHash(
+                JSON.stringify({
+                a: 1,
+                b: 2,
+                c: 3
+            })
+            );
         }
         test()
-        `, 100n, {})
+        `, 1000n, {})
         console.log(result)
     })
 </script>
