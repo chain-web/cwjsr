@@ -1,6 +1,6 @@
 {
   "name": "cwjsr",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "",
   "main": "node/cwjsr.js",
   "browser": "web/cwjsr.js",
