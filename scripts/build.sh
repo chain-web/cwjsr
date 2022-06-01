@@ -2,7 +2,7 @@
 
 wasm-pack build --target web --out-dir pkg/web
 #
-wasm-pack build --target nodejs --out-dir pkg/node
+wasm-pack build --out-dir pkg/node
 
 rm -rf ./npm
 
