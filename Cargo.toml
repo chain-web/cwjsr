@@ -12,7 +12,7 @@ default = ["console_error_panic_hook"]
 
 [dependencies]
 boa_engine = { path = "./sk-boa/boa_engine", features = ["console"] }
-boa_gc = { path = "./sk-boa/boa_gc", version = "0.14.0" }
+boa_gc = { path = "./sk-boa/boa_gc", version = "0.15.0" }
 gc = "0.4.1"
 tap = "1.0.1"
 wasm-bindgen = {version = "0.2.80", features = ["serde-serialize"] }
